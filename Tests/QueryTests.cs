@@ -4,25 +4,31 @@ namespace Holiday.Tests;
 
 public class QueryTests
 {
+    public List<FlightModel> flights;
+    public List<HotelModel> hotels;
+
     [SetUp]
-    public void Setup(){}
+    public void Setup()
+    {
+        flights = new List<FlightModel>()
+        {
+            new FlightModel(){Id=1, AirLine="First Class Air", From="MAN", To="TFS", Price=470, Departure_Date=DateTime.Parse("2023-07-01")},
+            new FlightModel(){Id=2, AirLine="Oceanic Airlines", From="MAN", To="AGP", Price=245, Departure_Date=DateTime.Parse("2023-07-01")},
+            new FlightModel(){Id=6, AirLine="Fresh Airways", From="LGW", To="PMI", Price=75, Departure_Date=DateTime.Parse("2023-06-15")}
+        };
+        
+        hotels = new List<HotelModel>()
+        {
+            new HotelModel(){Id=1, Name="Iberostar Grand Portals Nous", Arrival_Date=DateTime.Parse("2022-11-05"), Price_Per_Night = 100, Local_Airports = new List<string> { "TFS" }, Nights = 7},
+            new HotelModel(){Id = 3, Name="Sol Katmandu Park & Resort", Arrival_Date=DateTime.Parse("2023-06-15"), Price_Per_Night = 59, Local_Airports = new List<string> { "PMI" }, Nights = 14},
+            new HotelModel(){Id=9, Name="Nh Malaga", Arrival_Date=DateTime.Parse("2023-07-01"), Price_Per_Night = 83, Local_Airports = new List<string> { "AGP" }, Nights=7}
+        };
+    }
 
     [Test]
     public void Test_Sort_in_Query()
     {
-        List<FlightModel> flights = new List<FlightModel>()
-        {
-            new(1, "First Class Air", "MAN", "TFS", 470, "2023-07-01"),
-            new(2, "Oceanic Airlines", "MAN", "AGP", 245, "2023-07-01"),
-            new(6, "Fresh Airways", "LGW", "PMI", 75, "2023-06-15")
-        };
-        List<HotelModel> hotels = new List<HotelModel>()
-        {
-            new(1, "Iberostar Grand Portals Nous", "2022-11-05", 100, new string[] { "TFS" }, 7),
-            new(3, "Sol Katmandu Park & Resort", "2023-06-15", 59, new string[] { "PMI" }, 14),
-            new(9, "Nh Malaga", "2023-07-01", 83, new string[] { "AGP" }, 7)
-        };
-
+        
         var filter = new LowestTotalPriceQuery();
         var q = filter.Sort(flights,hotels);
         List<Result> expected = new List<Result>()
@@ -32,5 +38,17 @@ public class QueryTests
             new(flights[0], hotels[1])
         };
         Assert.That(q,Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Test_Query_From_QueryModel()
+    {
+        QueryModel q = new QueryModel("MAN", "AGP", "2023/07/01", 7);
+        var filter = new LowestTotalPriceQuery();
+        filter.Q(q);
+        filter.Query(flights,hotels);
+        Assert.That(filter.Results.Count,Is.EqualTo(1));
+        Assert.That(filter.Results.First().Flight.Id,Is.EqualTo(2));
+        Assert.That(filter.Results.First().Hotel.Id,Is.EqualTo(9));
     }
 }
