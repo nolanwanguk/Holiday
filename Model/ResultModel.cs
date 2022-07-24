@@ -1,8 +1,11 @@
 ﻿namespace Holiday.Model;
 
-public record struct Result(FlightModel Flight, HotelModel Hotel)
+public record struct Result(FlightModel Flight, HotelModel Hotel,int Duration)
 {
-
-    public int TotalPrice { get; set; } = 0;
-
+    private int value = 0;
+    public int TotalPrice
+    {
+        get => value;
+        set => value = Flight.Price + Hotel.TotalPrice(Duration);
+    }
 }
