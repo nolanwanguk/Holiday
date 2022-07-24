@@ -1,4 +1,6 @@
-﻿namespace Holiday.Model;
+﻿using NUnit.Framework.Constraints;
+
+namespace Holiday.Model;
 
 public readonly record struct HotelModel(int id,string name,string arrival_date,int price_per_night,string[] local_airports,int nights)
 {
@@ -9,5 +11,5 @@ public readonly record struct HotelModel(int id,string name,string arrival_date,
     internal readonly string[] LocalAirports = local_airports;
     internal readonly int Nights = nights;
 
-    public int TotalPrice(int n) => n <= Nights ? Price * n : -1;
+    public int TotalPrice() => Price * Nights;
 }
