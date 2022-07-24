@@ -83,7 +83,7 @@ dotnet restore
 
 ### Installing
 
-This solution doesn't need to installed.
+This solution doesn't need to be installed.
 Moreover, this solution doesn't provide any interface to show outputs and accept inputs.
 Only Test cases from NUnit framework will be runable.
 
