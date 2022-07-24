@@ -21,4 +21,13 @@ public class ModelTests
         FlightModel flight = new FlightModel(airline: "A", from: "B", to: "C", id: 1, price: 100, departure_date: Case);
         Assert.That(flight.DepartureDate,Is.EqualTo(new DateTime(2021,1,1)));
     }
+
+    [Test]
+    public void Test_TotalPrice_in_HotelModel()
+    {
+        int nights = 3;
+        HotelModel hotel = new HotelModel(1, "A", "2023-08-09", 10, new string[] { "ABC" }, 3);
+        Assert.That(hotel.TotalPrice(2),Is.EqualTo(20));
+        Assert.That(hotel.TotalPrice(4),Is.EqualTo(-1));
+    }
 }
