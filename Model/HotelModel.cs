@@ -5,7 +5,12 @@ public readonly record struct HotelModel(int id,string name,string arrival_date,
     internal readonly int Id = id;
     internal readonly string Name = name;
     internal readonly DateTime ArrvialDate = DateTime.Parse(arrival_date);
-    internal readonly int Price = price_per_night * nights;
+    internal readonly int Price = price_per_night;
     internal readonly string[] LocalAirports = local_airports;
     internal readonly int Nights = nights;
+    
+    public int TotalPrice(int n)
+    {
+        return Price * n;
+    }
 }
