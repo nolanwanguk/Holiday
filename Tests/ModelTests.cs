@@ -8,32 +8,17 @@ public class ModelTests
     { }
 
     [Test]
-    public void Test_DateTime_Conversion_By_Slash()
-    {
-        string Case="2021/01/01";
-        QueryModel query = new QueryModel(DepartingFrom:"A",DepartureDate: Case,TravelingTo:"B",Duration:1);
-        Assert.That(query.DepartureDateConvert,Is.EqualTo(new DateTime(2021,1,1)));
-    }
-    [Test]
-    public void Test_DateTime_Conversion_By_Minus()
-    {
-        string Case="2021-01-01";
-        FlightModel flight = new FlightModel(airline: "A", from: "B", to: "C", id: 1, price: 100, departure_date: Case);
-        Assert.That(flight.DepartureDate,Is.EqualTo(new DateTime(2021,1,1)));
-    }
-
-    [Test]
     public void Test_TotalPrice_in_HotelModel()
     {
-        HotelModel hotel = new HotelModel(id:1, name:"A", arrival_date:"2023-08-09", price_per_night:10, local_airports:new string[] { "ABC" }, nights:3);
+        HotelModel hotel = new HotelModel(){Id=1, Name= "A", Arrival_Date= DateTime.Parse("2023-08-09"), Price_Per_Night= 10, Local_Airports= new List<string>{ "ABC" }, Nights= 3};
         Assert.That(hotel.TotalPrice(),Is.EqualTo(20));
     }
 
     [Test]
     public void Test_TotalPrice_in_Result()
     {
-        FlightModel flight = new FlightModel(airline: "A", from: "B", to: "C", id: 1, price: 100, departure_date: "2023-08-09");
-        HotelModel hotel = new HotelModel(id:1, name:"A", arrival_date:"2023-08-09", price_per_night:10, local_airports:new string[] { "ABC" }, nights:3);
+        FlightModel flight = new FlightModel(){AirLine= "A", From= "B", To= "C", Id=1, Price=100, Departure_Date= DateTime.Parse("2023-08-09")};
+        HotelModel hotel = new HotelModel(){Id=1, Name= "A", Arrival_Date= DateTime.Parse("2023-08-09"), Price_Per_Night= 10, Local_Airports= new List<string>{ "ABC" }, Nights= 3};
         Result result = new Result(flight, hotel);
         Assert.That(result.TotalPrice,Is.EqualTo("£130"));
     }
