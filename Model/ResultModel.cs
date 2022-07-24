@@ -3,9 +3,9 @@
 public record struct Result(FlightModel Flight, HotelModel Hotel,int Duration)
 {
     private int value = 0;
-    public int TotalPrice
+    public string TotalPrice
     {
-        get => value;
-        set => value = Flight.Price + Hotel.TotalPrice(Duration);
+        get => "£"+value;
+        set => value = Flight.Price + Hotel.TotalPrice(Duration).ToString();
     }
 }
