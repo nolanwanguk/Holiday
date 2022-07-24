@@ -12,7 +12,7 @@ public class HotelsReader:BasicReader
     public override void BeforeRead() { }
     public override void Reader(string path)
     {
-        BeforeRead();
+        
         using (StreamReader r = new StreamReader(path))
         {
             string json = r.ReadToEnd();
@@ -20,9 +20,14 @@ public class HotelsReader:BasicReader
             Results = results;
             Counts = results.Count;
         }
-        AfterRead();
     }
 
     public override void AfterRead() { }
-    
+    public override void Read(string path)
+    {
+        
+        BeforeRead();
+        Reader(path);
+        AfterRead();
+    }
 }

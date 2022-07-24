@@ -5,14 +5,14 @@ namespace Holiday.IO;
 
 public class FlightsReader:BasicReader
 {
-    public int Counts;
+    public new int Counts;
 
-    public List<FlightModel> Results = new List<FlightModel>();
+    public new List<FlightModel> Results = new List<FlightModel>();
 
     public override void BeforeRead() { }
     public override void Reader(string path)
     {
-        BeforeRead();
+        
         using (StreamReader r = new StreamReader(path))
         {
             string json = r.ReadToEnd();
@@ -20,9 +20,14 @@ public class FlightsReader:BasicReader
             Results = results;
             Counts = results.Count;
         }
-        AfterRead();
     }
 
     public override void AfterRead() { }
-    
+    public override void Read(string path)
+    {
+        
+        BeforeRead();
+        Reader(path);
+        AfterRead();
+    }
 }
