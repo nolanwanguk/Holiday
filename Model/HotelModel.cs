@@ -1,15 +1,14 @@
-﻿using NUnit.Framework.Constraints;
+﻿namespace Holiday.Model;
 
-namespace Holiday.Model;
-
-public readonly record struct HotelModel(int id,string name,string arrival_date,int price_per_night,string[] local_airports,int nights)
+public class HotelModel
 {
-    internal readonly int Id = id;
-    internal readonly string Name = name;
-    internal readonly DateTime ArrvialDate = DateTime.Parse(arrival_date);
-    internal readonly int Price = price_per_night;
-    internal readonly string[] LocalAirports = local_airports;
-    internal readonly int Nights = nights;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public DateTime Arrival_Date { get; set; }
+    public int Price_Per_Night { get; set; }
+    public IList<string> Local_Airports { get; set; }
+    public int Nights { get; set; }
 
-    public int TotalPrice() => Price * Nights;
+    public int TotalPrice() => Price_Per_Night * Nights;
+    
 }
