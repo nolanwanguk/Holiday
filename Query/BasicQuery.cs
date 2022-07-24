@@ -32,12 +32,24 @@ public abstract class BasicQuery:IBasicQuery
 
     public void Query(List<FlightModel> flights, List<HotelModel> hotels)
     {
-        List<FlightModel> flight = flights.FindAll(i =>
-            i.DepartingFrom == DepartingFrom && i.TravelingTo == this.TravelingTo &&
-            i.DepartureDate == this.DepartureDate);
+        List<FlightModel> flight = new List<FlightModel>();
+        if (DepartingFrom != "Any")
+        {
+            flight = flights.FindAll(i =>
+                i.From == DepartingFrom && i.To == this.TravelingTo &&
+                i.Departure_Date == this.DepartureDate);
+        }
+        else
+        {
+            flight = flights.FindAll(i =>
+                i.To == this.TravelingTo &&
+                i.Departure_Date == this.DepartureDate);
+        }
+        
         List<HotelModel> hotel = hotels.FindAll(i =>
-            i.ArrvialDate == this.DepartureDate && i.LocalAirports.Contains(this.TravelingTo) &&
+            i.Arrival_Date == this.DepartureDate && i.Local_Airports.Contains(this.TravelingTo) &&
             i.Nights >= this.Duration);
+
         
         this.Results = Sort(flight, hotel);
     }
