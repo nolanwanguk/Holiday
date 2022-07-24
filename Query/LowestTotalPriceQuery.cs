@@ -8,10 +8,10 @@ public class LowestTotalPriceQuery:BasicQuery
     {
         List<Result> Results = new List<Result>();
         flights = flights.OrderBy(i => i.Price).ToList();
-        hotels = hotels.OrderBy(i => i.TotalPrice(this.Duration)).ToList();
+        hotels = hotels.OrderBy(i => i.TotalPrice()).ToList();
         for (int idx = 0; idx < (flights.Count <= hotels.Count ? flights.Count : hotels.Count); idx++)
         {
-            Results.Add(new Result(flights[idx],hotels[idx],this.Duration));
+            Results.Add(new Result(flights[idx],hotels[idx]));
         }
         return Results;
     }
