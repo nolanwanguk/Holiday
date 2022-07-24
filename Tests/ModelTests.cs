@@ -11,7 +11,7 @@ public class ModelTests
     public void Test_TotalPrice_in_HotelModel()
     {
         HotelModel hotel = new HotelModel(){Id=1, Name= "A", Arrival_Date= DateTime.Parse("2023-08-09"), Price_Per_Night= 10, Local_Airports= new List<string>{ "ABC" }, Nights= 3};
-        Assert.That(hotel.TotalPrice(),Is.EqualTo(20));
+        Assert.That(hotel.TotalPrice(),Is.EqualTo(30));
     }
 
     [Test]
