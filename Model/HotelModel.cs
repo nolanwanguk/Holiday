@@ -9,5 +9,5 @@ public readonly record struct HotelModel(int id,string name,string arrival_date,
     internal readonly string[] LocalAirports = local_airports;
     internal readonly int Nights = nights;
 
-    public int TotalPrice(int n) => n < Nights ? Price * n : -1;
+    public int TotalPrice(int n) => n <= Nights ? Price * n : -1;
 }
